@@ -108,8 +108,27 @@ button,input,select,textarea{max-width:100%;font:inherit}
  html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
+
+/* Accessible collapsible navigation */
+.menu{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:44px;height:44px;padding:9px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+.menu span{display:block;width:20px;height:2px;border-radius:2px;background:var(--navy);transition:transform .2s,opacity .2s}
+.menu[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+.menu[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){
+ .nav .wrap{position:relative;display:flex;justify-content:space-between;align-items:center}
+ .menu{display:flex;order:1;flex:0 0 44px}
+ .nav .brand{order:0}
+ .nav .links{display:none;order:2;width:100%;max-width:none;overflow:visible;white-space:normal;flex-direction:column;align-items:stretch;gap:0;padding:8px 0 5px;border-top:1px solid var(--line)}
+ .nav .links.is-open{display:flex}
+ .nav .links a{display:block;padding:13px 10px;border-radius:9px}
+ .nav .links a:hover{background:#f2f5fc}
+ .nav .links .btn{align-self:flex-start;margin:8px 0 4px;padding:11px 18px}
+}
+@media(min-width:901px){.menu{display:none!important}.nav .links{display:flex!important}}
+
 </style></head><body>
-<header class="nav"><div class="wrap"><a class="brand" href="#">RUPESH KAAPRI<small>TAX · FINANCE · COMPLIANCE</small></a><nav class="links"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#contact">Contact</a><a class="btn" href="https://wa.me/919112145565" target="_blank">WhatsApp ↗</a></nav></div></header>
+<header class="nav"><div class="wrap"><a class="brand" href="#">RUPESH KAAPRI<small>TAX · FINANCE · COMPLIANCE</small></a><button class="menu" id="menuToggle" type="button" aria-label="Open navigation menu" aria-controls="siteLinks" aria-expanded="false"><span></span><span></span><span></span></button><nav class="links" id="siteLinks"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#contact">Contact</a><a class="btn" href="https://wa.me/919112145565" target="_blank">WhatsApp ↗</a></nav></div></header>
 <main><section class="hero" id="home"><div class="wrap heroGrid"><div><div class="tag">Your trusted financial partner</div><h1>Finance smarter.<br>Grow further.</h1><p>Professional tax, accounting, registration and business compliance assistance for individuals, entrepreneurs and growing businesses.</p><div class="actions"><a class="btn" href="#services">Explore services →</a><a class="btn light" href="#contact">Talk to an expert</a></div></div><div class="visual"><div class="tag" style="color:#b7c9ff">Clarity in every step</div><h2>Make compliance simpler. Focus on what matters.</h2><div class="glass"><b>Personal & Business Support</b><span>Tax filing · Registrations · Statutory compliance</span></div></div></div></section>
 <section class="section" style="padding:0 0 34px"><div class="wrap" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"><div class="mini"><b>Clear requirements</b><span>Know the likely documents before you start.</span></div><div class="mini"><b>Transparent estimates</b><span>Understand indicative fees and statutory charges.</span></div><div class="mini"><b>Direct enquiry</b><span>Discuss your requirement through WhatsApp.</span></div></div></section>
 <section class="section" id="about"><div class="wrap about"><div><div class="tag">About the practice</div><h2>Your partner in financial & business compliance.</h2><p>From individual income tax returns to business registrations and statutory compliance, get assistance in understanding requirements, preparing documents and navigating the process.</p><a class="btn" href="#contact">Discuss your requirements →</a></div><div class="miniGrid"><div class="mini"><div class="ico">▤</div><b>Simplified documentation</b><span>Know what to prepare before you begin.</span></div><div class="mini"><div class="ico">✓</div><b>Professional guidance</b><span>Understand the process and next steps.</span></div><div class="mini"><div class="ico">₹</div><b>Clear estimates</b><span>Professional fees and statutory charges explained.</span></div><div class="mini"><div class="ico">◎</div><b>Personal support</b><span>Guidance based on your requirements.</span></div></div></div></section>
@@ -136,4 +155,12 @@ const icons=['₹','▣','◫','＋','◇','▦','▤','▧','⌂','▥','⚒'],
 data.forEach((s,i)=>{grid.insertAdjacentHTML('beforeend',`<article class="card"><div class="ico">${icons[i]}</div><h3>${s[0]}</h3><p>${s[2]}</p><button data-i="${i}">View documents & pricing →</button></article>`);sel.insertAdjacentHTML('beforeend',`<option>${s[0]}</option>`)});
 const searchBox=document.getElementById('serviceSearch'),serviceCount=document.getElementById('serviceCount');searchBox.addEventListener('input',()=>{const q=searchBox.value.trim().toLowerCase();let shown=0;grid.querySelectorAll('.card').forEach((card,i)=>{const match=(data[i][0]+' '+data[i][2]).toLowerCase().includes(q);card.hidden=!match;if(match)shown++});let empty=document.getElementById('emptyServices');if(!shown){if(!empty){empty=document.createElement('div');empty.id='emptyServices';empty.className='empty-services';empty.textContent='No matching service found. Try another keyword or contact us on WhatsApp.';grid.appendChild(empty)}}else if(empty)empty.remove();serviceCount.textContent='Showing '+shown+' of '+data.length+' services'});
 let active=null;const back=document.getElementById('back');function show(i){active=data[i];document.getElementById('title').textContent=active[0];document.getElementById('desc').textContent=active[2];document.getElementById('price').textContent=active[1];document.getElementById('gov').textContent=active[4];document.getElementById('docs').innerHTML=active[3].split('|').map(x=>'<div class="doc">'+x+'</div>').join('');back.classList.add('show')}function hide(){back.classList.remove('show')}grid.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b)show(+b.dataset.i)});document.getElementById('close').onclick=hide;back.addEventListener('click',e=>{if(e.target===back)hide()});document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});function wa(t){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(t),'_blank','noopener')}document.getElementById('ask').onclick=()=>{if(active)wa('Hello CA Rupesh Kaapri, I am interested in '+active[0]+'. Please confirm the exact document checklist, final professional fee, government charges and next steps. Thank you.')};document.getElementById('form').onsubmit=e=>{e.preventDefault();wa('Hello CA Rupesh Kaapri\nName: '+document.getElementById('name').value+'\nPhone: '+document.getElementById('phone').value+'\nService: '+document.getElementById('service').value+'\nMessage: '+document.getElementById('message').value)};document.getElementById('year').textContent=new Date().getFullYear();
+
+const menuToggle=document.getElementById('menuToggle'),siteLinks=document.getElementById('siteLinks');
+function closeMenu(){if(!menuToggle||!siteLinks)return;menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Open navigation menu');siteLinks.classList.remove('is-open')}
+menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')!=='true';menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');siteLinks.classList.toggle('is-open',open)});
+siteLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+window.addEventListener('resize',()=>{if(window.innerWidth>900)closeMenu()});
+
 </script></body></html>
