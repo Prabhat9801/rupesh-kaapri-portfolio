@@ -29,6 +29,85 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(max-width:520px){.wrap{width:min(100% - 30px,1140px)}.hero h1{font-size:43px}.hero p{font-size:15px}.hero .actions .btn{width:100%;text-align:center}.visual{height:260px;padding:24px}.visual h2{font-size:27px;margin-top:34px}.glass{left:18px;right:18px;bottom:18px}.section{padding:58px 0}.heading{margin-bottom:30px}.card{min-height:0;padding:21px}.contact{padding:28px 20px;border-radius:22px}.contact h2{font-size:30px}.foot{flex-direction:column}.service-tools{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
+
+/* Responsive layout hardening: phones, tablets, laptops and wide displays */
+html{width:100%;overflow-x:clip;scroll-padding-top:90px}
+body{width:100%;min-width:320px;overflow-x:clip}
+img,svg,video,canvas{max-width:100%;height:auto}
+button,input,select,textarea{max-width:100%;font:inherit}
+.wrap{width:min(1140px,calc(100% - 48px))}
+.heroGrid>* ,.about>* ,.contact>* ,.nav .wrap>*{min-width:0}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+.miniGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.docs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card[hidden]{display:none!important}
+.card h3,.card p,.step p,.mini span,.contact p{overflow-wrap:anywhere}
+.form input,.form textarea,.form select{width:100%;min-width:0}
+.form textarea{resize:vertical}
+.modal{width:min(680px,calc(100vw - 36px));max-height:min(90dvh,900px);overscroll-behavior:contain}
+.back{padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+.float{right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom))}
+@media(min-width:1440px){.wrap{width:min(1200px,calc(100% - 80px))}.hero{padding-block:116px}.section{padding-block:104px}}
+@media(max-width:1100px){
+ .links{gap:15px;font-size:13px}.links .btn{padding:11px 15px}
+ .heroGrid{gap:34px}.hero h1{font-size:clamp(40px,5.5vw,60px)}
+ .contact{gap:24px;padding:36px}
+}
+@media(max-width:900px){
+ .nav{height:auto;min-height:76px}.nav .wrap{min-height:76px;flex-wrap:wrap;gap:10px;padding-block:12px}
+ .links{display:flex;order:2;width:100%;max-width:100%;overflow-x:auto;white-space:nowrap;gap:20px;padding:4px 0 8px;scrollbar-width:thin}
+ .links .btn{flex:0 0 auto}
+ .heroGrid{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}
+ .about{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+ .contact{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .grid,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+ .wrap{width:calc(100% - 36px)}
+ .heroGrid,.about,.contact{grid-template-columns:minmax(0,1fr)}
+ .hero{padding:60px 0}.heroGrid{gap:28px}.hero h1{font-size:clamp(40px,9vw,54px);letter-spacing:-2px}
+ .hero p{font-size:15px}.visual{height:270px}
+ .about{gap:28px}.miniGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .section{padding:62px 0}.grid,.steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+ .card{min-height:205px;padding:19px}.step{padding:19px}
+ .contact{padding:28px 22px;gap:20px}.contact h2{font-size:clamp(28px,7vw,35px)}
+ .service-tools{width:100%;max-width:none}.service-search{font-size:16px}
+ .footer .foot{align-items:flex-start}
+}
+@media(max-width:460px){
+ .wrap{width:calc(100% - 30px)}
+ .nav .wrap{gap:8px}.brand{font-size:17px}.brand small{font-size:9px;letter-spacing:1.5px}
+ .links{gap:17px;font-size:13px}.links .btn{padding:9px 13px}
+ .hero{padding:48px 0}.hero h1{font-size:clamp(37px,10vw,46px)}.hero .actions{gap:10px}
+ .hero .actions .btn{width:100%;text-align:center}
+ .visual{height:245px;padding:22px;border-radius:22px}.visual h2{font-size:26px;max-width:240px;margin-top:30px}
+ .glass{left:15px;right:15px;bottom:15px;padding:13px}.glass b{font-size:16px}
+ .section{padding:52px 0}.heading h2,.about h2{font-size:30px;letter-spacing:-1px}
+ .grid,.steps{grid-template-columns:minmax(0,1fr)}
+ .card{min-height:0;padding:21px}.card p{margin-bottom:18px}
+ .miniGrid{gap:9px}.mini{padding:15px}.mini b{font-size:13px}.mini span{font-size:11px}
+ .step{padding:18px}.contact{padding:24px 17px;border-radius:20px}
+ .form input,.form textarea,.form select{font-size:16px;padding:13px}
+ .docs{grid-template-columns:minmax(0,1fr);gap:7px}
+ .modal{padding:20px 17px;border-radius:17px}.modal h2{font-size:22px}.fee b{font-size:19px}
+ .float{width:51px;height:51px;right:13px;bottom:13px}
+ .foot{gap:12px}
+}
+@media(max-width:360px){
+ .wrap{width:calc(100% - 24px)}.brand{font-size:15px}.links{gap:14px}
+ .hero h1{font-size:36px}.visual{height:230px}.visual h2{font-size:23px}
+ .miniGrid{grid-template-columns:minmax(0,1fr)}
+ .contact{padding:21px 14px}.modal{width:calc(100vw - 20px);padding:17px 14px}
+}
+@media(orientation:landscape) and (max-height:520px) and (max-width:900px){
+ .nav{position:relative}.hero{padding-block:34px}.visual{height:230px}
+ .back{align-items:flex-start}.modal{max-height:calc(100dvh - 24px)}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style></head><body>
 <header class="nav"><div class="wrap"><a class="brand" href="#">RUPESH KAAPRI<small>TAX · FINANCE · COMPLIANCE</small></a><nav class="links"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#contact">Contact</a><a class="btn" href="https://wa.me/919112145565" target="_blank">WhatsApp ↗</a></nav></div></header>
 <main><section class="hero" id="home"><div class="wrap heroGrid"><div><div class="tag">Your trusted financial partner</div><h1>Finance smarter.<br>Grow further.</h1><p>Professional tax, accounting, registration and business compliance assistance for individuals, entrepreneurs and growing businesses.</p><div class="actions"><a class="btn" href="#services">Explore services →</a><a class="btn light" href="#contact">Talk to an expert</a></div></div><div class="visual"><div class="tag" style="color:#b7c9ff">Clarity in every step</div><h2>Make compliance simpler. Focus on what matters.</h2><div class="glass"><b>Personal & Business Support</b><span>Tax filing · Registrations · Statutory compliance</span></div></div></div></section>
